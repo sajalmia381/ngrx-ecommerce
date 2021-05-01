@@ -11,11 +11,9 @@ export class ProductService {
   constructor(private http: HttpService) {}
 
   getProducts(): Observable<Product[]> {
-    console.log('service');
     return this.http.get('/products').pipe(
       map(data => {
-        console.log('service data', data);
-        return [];
+        return data;
       })
     );
   }

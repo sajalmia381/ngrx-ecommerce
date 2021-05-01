@@ -1,12 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
-import { loadProducts } from './product.actions';
-import { initialState, productAdaptar } from './product.state';
+import { loadProductsSuccess } from './product.actions';
+import { initialState, productAdapter } from './product.state';
 
 const _productReducer = createReducer(
   initialState,
-  on(loadProducts, (state, action) => {
-    return productAdaptar.setAll(action.products, {
-      ...state
+  on(loadProductsSuccess, (state, action) => {
+    return productAdapter.setAll(action.products, {
+      ...state,
+      loaded: true
     });
   })
 );

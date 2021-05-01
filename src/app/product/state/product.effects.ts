@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import { map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { ProductService } from '../product.service';
 import * as productAction from './product.actions';
-import { getProducts } from './product.selectors';
+import { isLoaded } from './product.selectors';
 @Injectable()
 export class ProductEffects {
   constructor(
@@ -13,18 +14,19 @@ export class ProductEffects {
     private productService: ProductService
   ) {}
   loadProducts$ = createEffect(() => {
-    console.log('loading products effects');
     return this.action$.pipe(
       ofType(productAction.loadProducts),
-      withLatestFrom(this.store.select(getProducts)),
-      mergeMap(([action, products]) => {
-        console.log('effect mergeMap', action);
-        return this.productService.getProducts().pipe(
-          map(products => {
-            console.log(products);
-            return productAction.loadProducts({ products });
-          })
-        );
+      withLatestFrom(this.store.select(isLoaded)),
+      mergeMap(([action, loaded]) => {
+        console.log(action, loaded)
+        if(!loaded) {
+          return this.productService.getProducts().pipe(
+            map(products => {
+              return productAction.loadProductsSuccess({ products });
+            })
+          );
+        }
+        return of(productAction.dummyAction())
       })
     );
   });

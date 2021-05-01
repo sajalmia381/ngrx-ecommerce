@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Product } from '../state/product';
 import { loadProducts } from '../state/product.actions';
-import { getProducts } from '../state/product.selectors';
+import { getProducts, isLoaded } from '../state/product.selectors';
 
 @Component({
   selector: 'app-product-list',
@@ -12,13 +12,13 @@ import { getProducts } from '../state/product.selectors';
 })
 export class ProductListComponent implements OnInit {
   products$: Observable<Product[]>;
+  isLoaded$: Observable<boolean>;
+  loading: false;
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.products$ = this.store.select(getProducts);
-    this.store.select(getProducts).subscribe(data => {
-      console.log(data);
-    });
+    this.isLoaded$ = this.store.select(isLoaded);
     this.store.dispatch(loadProducts());
   }
 }
