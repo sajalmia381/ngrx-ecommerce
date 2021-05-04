@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { deleteProductSucess, loadProductsSuccess, updateProductSucess } from './product.actions';
+import { deleteProductSuccess, loadProductsSuccess, updateProductSuccess } from './product.actions';
 import { initialState, productAdapter } from './product.state';
 
 const _productReducer = createReducer(
@@ -10,10 +10,10 @@ const _productReducer = createReducer(
       loaded: true
     });
   }),
-  on(updateProductSucess, (state, action) => {
+  on(updateProductSuccess, (state, action) => {
     return productAdapter.updateOne(action.product, state);
   }),
-  on(deleteProductSucess, (state, action) => {
+  on(deleteProductSuccess, (state, action) => {
     return productAdapter.removeOne(action.id, state);
   })
 );

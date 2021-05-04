@@ -8,7 +8,7 @@ import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators
 import { ProductService } from '../product.service';
 import { Product } from './product';
 import * as productAction from './product.actions';
-import { getProducts, isLoaded } from './product.selectors';
+import { getProductById, getProducts, isLoaded } from './product.selectors';
 @Injectable()
 export class ProductEffects {
   constructor(
@@ -45,12 +45,16 @@ export class ProductEffects {
       }),
       withLatestFrom(this.store.select(getProducts)),
       switchMap(([id, products]) => {
-        return this.productService.getProduct(id).pipe(
-          map(product => {
-            const postData = [{ ...product, id }];
-            return productAction.loadProductsSuccess({ products: postData });
-          })
-        );
+        console.log(products.length)
+        if(id && !products.length) {
+          return this.productService.getProduct(id).pipe(
+            map(product => {
+              const postData = [{ ...product, id }];
+              return productAction.loadProductsSuccess({ products: postData });
+            })
+          );
+        }
+        return of(productAction.dummyAction());
       })
     );
   });
@@ -66,10 +70,21 @@ export class ProductEffects {
                 ...action.product
               }
             };
-            return productAction.updateProductSucess({ product: updatedProduct });
+            return productAction.updateProductSuccess({ product: updatedProduct });
           })
         );
       })
     )
   );
+  // deleteProduct$ = createEffect(() => {
+  //   return this.action$.pipe(
+  //     ofType(productAction.deleteProduct),
+  //     switchMap(action => {
+  //       console.log(action)
+  //       return this.productService.deleteProduct(action.id).subscribe(data => {
+  //         // return productAction.deleteProductSuccess(action.id)
+  //       })
+  //     })
+  //   )
+  // })
 }

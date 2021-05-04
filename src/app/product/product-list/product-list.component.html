@@ -20,7 +20,7 @@
 					</div>
 					<div class="mb-2 mt-4 px-6">
 						<a [routerLink]="['/products', item?.id, 'edit']" routerlinkactive="router-link-active" mat-raised-button class="mr-2 px-4">Edit</a>
-						<button mat-raised-button color="accent" class="px-4">Delete</button>
+						<button (click)="onRemoveProduct(item?.id)" mat-raised-button color="accent" class="px-4">Delete</button>
 					</div>
 				</div>
 			</div>
