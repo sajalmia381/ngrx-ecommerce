@@ -17,4 +17,10 @@ export class ProductService {
       })
     );
   }
+  getProduct(id: number): Observable<Product> {
+    return this.http.get('/products/' + id);
+  }
+  updateProduct(product: Product): Observable<Product> {
+    return this.http.put('/products/' + product?.id, product);
+  }
 }
