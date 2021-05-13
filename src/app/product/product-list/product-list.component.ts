@@ -23,12 +23,6 @@ export class ProductListComponent implements OnInit {
     this.isLoaded$ = this.store.select(isLoaded);
     this.store.dispatch(loadProducts());
   }
-<<<<<<< HEAD
-  onRemoveProduct(item): void {
-    if(confirm('are you sure want to delete product ?')) {
-      this.store.dispatch(deleteProduct({id: item?.id}))
-    }
-=======
   onProductDelete(product): void {
     const deleteDialogRef = this.dialog.open(DeleteConformationComponent, {
       width: '100%',
@@ -42,6 +36,5 @@ export class ProductListComponent implements OnInit {
         this.store.dispatch(deleteProduct({ id: product?.id }));
       }
     });
->>>>>>> 09aa78f40013dc420eeae34bd0e4ba4f9ab34373
   }
 }

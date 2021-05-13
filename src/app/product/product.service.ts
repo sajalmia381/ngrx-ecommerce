@@ -23,17 +23,11 @@ export class ProductService {
   updateProduct(product: Product): Observable<Product> {
     return this.http.put('/products/' + product?.id, product);
   }
-<<<<<<< HEAD
   deleteProduct(id: string): Observable<Product> {
     console.log(id)
     return this.http.delete('/products/' + id).pipe(map(res => {
       console.log(res)
       return res
     }))
-=======
-  deleteProduct(id: number) {
-    console.log(id);
-    return this.http.delete('/products/' + id);
->>>>>>> 09aa78f40013dc420eeae34bd0e4ba4f9ab34373
   }
 }

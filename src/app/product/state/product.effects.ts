@@ -80,18 +80,6 @@ export class ProductEffects {
     return this.action$.pipe(
       ofType(productAction.deleteProduct),
       switchMap(action => {
-<<<<<<< HEAD
-        console.log(action)
-        return this.productService.deleteProduct(action.id).pipe(
-          map(data => {
-            console.log('res', data)
-            return productAction.deleteProductSuccess({id: action.id})
-          }
-        ))
-      })
-    )
-  })
-=======
         return this.productService.deleteProduct(action?.id).pipe(
           map(data => {
             console.log(data);
@@ -101,5 +89,4 @@ export class ProductEffects {
       })
     );
   });
->>>>>>> 09aa78f40013dc420eeae34bd0e4ba4f9ab34373
 }
