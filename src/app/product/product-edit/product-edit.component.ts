@@ -30,7 +30,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this.isAlive))
       .subscribe(data => {
         this.product = data;
-        if(data) {
+        if (data) {
           this.productForm.patchValue({
             title: data?.title,
             description: data?.description,
@@ -43,19 +43,19 @@ export class ProductEditComponent implements OnInit, OnDestroy {
     this.isAlive = false;
   }
   onFormSubmit(): void {
-    if(this.productForm.invalid){
+    if (this.productForm.invalid) {
       this.snackbar.open('Form is not valid', 'close');
-      return
+      return;
     }
-    const formData = this.productForm.value
-    const newFormData = {...this.product}
+    const formData = this.productForm.value;
+    const newFormData = { ...this.product };
     Object.keys(formData).map(key => {
       if (newFormData[key] !== formData[key]) {
-        newFormData[key] = formData[key]
+        newFormData[key] = formData[key];
       }
-    })
+    });
     // console.log(newFormData)
-    this.store.dispatch(updateProduct({product: newFormData}))
-    this.router.navigate(['/products'])
+    this.store.dispatch(updateProduct({ product: newFormData }));
+    this.router.navigate(['/products']);
   }
 }

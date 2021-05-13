@@ -135,11 +135,11 @@ export class HttpService {
     }
     const error = response.error;
     let key = 'error';
-    let message = response.message;
+    let message = response?.message;
     if (typeof error === 'object') {
       const keys = Object.keys(error);
       key = keys[0];
-      message = error.message;
+      message = error?.message;
     }
     if (typeof error === 'string') {
       message = error;

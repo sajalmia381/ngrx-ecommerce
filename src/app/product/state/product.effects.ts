@@ -45,8 +45,8 @@ export class ProductEffects {
       }),
       withLatestFrom(this.store.select(getProducts)),
       switchMap(([id, products]) => {
-        console.log(products.length)
-        if(id && !products.length) {
+        console.log(products.length);
+        if (id && !products.length) {
           return this.productService.getProduct(id).pipe(
             map(product => {
               const postData = [{ ...product, id }];
@@ -80,6 +80,7 @@ export class ProductEffects {
     return this.action$.pipe(
       ofType(productAction.deleteProduct),
       switchMap(action => {
+<<<<<<< HEAD
         console.log(action)
         return this.productService.deleteProduct(action.id).pipe(
           map(data => {
@@ -90,4 +91,15 @@ export class ProductEffects {
       })
     )
   })
+=======
+        return this.productService.deleteProduct(action?.id).pipe(
+          map(data => {
+            console.log(data);
+            return productAction.deleteProductSuccess({ id: action.id });
+          })
+        );
+      })
+    );
+  });
+>>>>>>> 09aa78f40013dc420eeae34bd0e4ba4f9ab34373
 }
