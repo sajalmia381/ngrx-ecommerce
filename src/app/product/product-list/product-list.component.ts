@@ -21,7 +21,9 @@ export class ProductListComponent implements OnInit {
     this.isLoaded$ = this.store.select(isLoaded);
     this.store.dispatch(loadProducts());
   }
-  onRemoveProduct(id): void {
-    this.store.dispatch(deleteProduct(id))
+  onRemoveProduct(item): void {
+    if(confirm('are you sure want to delete product ?')) {
+      this.store.dispatch(deleteProduct({id: item?.id}))
+    }
   }
 }

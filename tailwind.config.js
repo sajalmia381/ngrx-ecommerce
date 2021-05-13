@@ -1,5 +1,6 @@
 const colors = require('tailwindcss/colors');
 module.exports = {
+    important: true,
     prefix: '',
     purge: {
       content: [

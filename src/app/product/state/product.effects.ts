@@ -4,7 +4,7 @@ import { Update } from '@ngrx/entity';
 import { RouterNavigatedAction, ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { ProductService } from '../product.service';
 import { Product } from './product';
 import * as productAction from './product.actions';
@@ -76,15 +76,18 @@ export class ProductEffects {
       })
     )
   );
-  // deleteProduct$ = createEffect(() => {
-  //   return this.action$.pipe(
-  //     ofType(productAction.deleteProduct),
-  //     switchMap(action => {
-  //       console.log(action)
-  //       return this.productService.deleteProduct(action.id).subscribe(data => {
-  //         // return productAction.deleteProductSuccess(action.id)
-  //       })
-  //     })
-  //   )
-  // })
+  deleteProduct$ = createEffect(() => {
+    return this.action$.pipe(
+      ofType(productAction.deleteProduct),
+      switchMap(action => {
+        console.log(action)
+        return this.productService.deleteProduct(action.id).pipe(
+          map(data => {
+            console.log('res', data)
+            return productAction.deleteProductSuccess({id: action.id})
+          }
+        ))
+      })
+    )
+  })
 }

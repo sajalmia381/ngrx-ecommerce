@@ -16,7 +16,7 @@ export const updateProductSuccess = createAction(
   UPDATE_PRODUCT_SUCCESS,
   props<{ product: Update<Product> }>()
 );
-export const deleteProduct = createAction(DELETE_PRODUCT, props<{ id: number | string }>());
-export const deleteProductSuccess = createAction(DELETE_PRODUCT_SUCCESS, props<{ id: number }>());
+export const deleteProduct = createAction(DELETE_PRODUCT, props<{ id: string }>());
+export const deleteProductSuccess = createAction(DELETE_PRODUCT_SUCCESS, props<{ id: string }>());
 
 export const dummyAction = createAction('[product] dummy action');
