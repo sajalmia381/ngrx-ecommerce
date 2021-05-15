@@ -80,10 +80,9 @@ export class ProductEffects {
         return this.productService.deleteProduct(action?.id).pipe(
           catchError(err => {
             console.log('catch error', err)
-            return of('')
+            return of(err?.message)
           }),
           map(data => {
-            console.log(data);
             return productAction.deleteProductSuccess({ id: action.id });
           })
         );

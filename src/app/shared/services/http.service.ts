@@ -147,9 +147,10 @@ export class HttpService {
     if (response.status === 0) {
       message = 'Connection is not stable';
     }
-    this.snackBar.open(message, 'close', {
-      duration: 10000
-    });
+    // this.snackBar.open(message, 'close', {
+    //   duration: 10000
+    // });
+    console.log(message)
     return throwError({ messages: message }, error);
   }
 }
