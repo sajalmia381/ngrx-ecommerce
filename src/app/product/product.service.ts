@@ -17,6 +17,9 @@ export class ProductService {
       })
     );
   }
+  addProduct(product: Product): Observable<Product[]> {
+    return this.http.post('/products', product);
+  }
   getProduct(id: string): Observable<Product> {
     return this.http.get('/products/' + id);
   }
