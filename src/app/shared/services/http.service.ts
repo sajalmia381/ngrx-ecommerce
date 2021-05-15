@@ -118,7 +118,6 @@ export class HttpService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'x-auth-token': token }),
       params: queryParameters
     };
-    console.log('delete', url)
     return this.http
       .delete(this.baseApiUrl + url, httpOptions)
       .pipe(catchError(this.errorHandler.bind(this)));
@@ -126,6 +125,7 @@ export class HttpService {
   // tslint:disable-next-line:typedef
   private errorHandler(response: any) {
     console.log('errorHandler Response', response);
+    // console.dir(response)
     if (response.status === 401 || response.status === 403) {
       localStorage.removeItem('kc-requester');
       this.router.navigate(['auth/login']);

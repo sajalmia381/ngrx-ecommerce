@@ -24,9 +24,8 @@ export class ProductService {
     return this.http.put('/products/' + product?.id, product);
   }
   deleteProduct(id: string): Observable<Product> {
-    console.log(id)
     return this.http.delete('/products/' + id).pipe(map(res => {
-      console.log(res)
+      console.log('delete product', res)
       return res
     }))
   }
